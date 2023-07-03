@@ -72,7 +72,6 @@ def map(pos):
 
 async def queue_answer(app, callback_query):
     chatid = callback_query.from_user.id
-    messageid = callback_query.message.id
     pos = int(callback_query.data.split('+')[1])
     if pos == -1:
         await callback_query.answer("no task", show_alert=True)
@@ -80,7 +79,12 @@ async def queue_answer(app, callback_query):
     taskpos = pos+1
     size = len(data)
     tasktitle = await get_title(pos)
-    await callback_query.edit_message_text(f"<b>{taskpos} of {size}</b>:\n\n{tasktitle}", reply_markup=InlineKeyboardMarkup(map(pos)))
+    await app.edit_message_text(
+        chat_id=callback_query.message.chat.id,
+        message_id=callback_query.message.message_id,
+        text=f"<b>{taskpos} of {size}</b>:\n\n{tasktitle}",
+        reply_markup=InlineKeyboardMarkup(map(pos))
+    )
 
 
 @Client.on_message(filters.command(['queue']))

@@ -35,7 +35,7 @@ api_hash = os.environ.get("API_HASH")
 bot_token = os.environ.get("BOT_TOKEN")
 
 database = os.environ.get("MONGO_URI")
-session = os.environ.get("SESSION_NAME")
+session = "OPLEECH"
 
 drive_dir = os.environ.get("DRIVE_DIR")
 index = os.environ.get("INDEX_URL")
